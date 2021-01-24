@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/login',
+      initialRoute: '/login1',
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.
         '/login': (context) => LoginScreen(),
