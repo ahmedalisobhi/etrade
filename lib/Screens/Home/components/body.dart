@@ -18,7 +18,6 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     switch (pageNum) {
       case 1:
         pageToDisplay = OrdersScreen();

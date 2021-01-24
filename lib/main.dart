@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ultimate_demo/Screens/About/about_screen.dart';
-import 'package:ultimate_demo/Screens/Home/home_screen.dart';
 import 'package:ultimate_demo/Screens/Login/login_screen.dart';
 import 'package:ultimate_demo/Screens/Orders/orders_screen.dart';
 import 'package:ultimate_demo/utility/constants.dart';
