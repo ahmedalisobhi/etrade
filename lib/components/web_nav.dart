@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ultimate_demo/utility/api.dart';
 import 'package:ultimate_demo/utility/constants.dart';
 
+// ignore: must_be_immutable
 class WebNav extends StatefulWidget {
   double opacity = 0;
   int pageNum = 1;
@@ -13,10 +14,10 @@ class WebNav extends StatefulWidget {
 }
 
 class _WebNavState extends State<WebNav> {
-  final List _isHovering = [
-    false,
-    false,
-  ];
+  // final List _isHovering = [
+  //   false,
+  //   false,
+  // ];
   final Api apiObj = Api();
   TextStyle selectedTextStyle = TextStyle(
       fontSize: 18,
