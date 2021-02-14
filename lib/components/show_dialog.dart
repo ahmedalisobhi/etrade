@@ -6,7 +6,7 @@ void showErrorMessage(String message) {
       msg: message,
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
+      timeInSecForIosWeb: 5,
       backgroundColor: Colors.red,
       textColor: Colors.white,
       fontSize: 16.0);
@@ -17,7 +17,7 @@ void showDialogMessage(String message) {
       msg: message,
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
+      timeInSecForIosWeb: 5,
       backgroundColor: Colors.black,
       textColor: Colors.white,
       fontSize: 16.0);

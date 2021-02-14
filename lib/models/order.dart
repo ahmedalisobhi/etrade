@@ -53,6 +53,6 @@ class Order {
 
   @override
   String toString() {
-    return '{ ${this.stockName}, ${this.remainingQty}, ${this.quantity},${this.price}, ${this.orderTypeId},${this.orderType}${this.orderStatusName}, ${this.orderState}, ${this.orderId}${this.orderDate}, ${this.executionQty},${this.dateLimit}${this.bKeeper}, ${this.type}, ${this.typeHint} }';
+    return '{ ${this.stockName}, ${this.orderId}, ${this.quantity},${this.price}, ${this.orderTypeId},${this.orderType}${this.orderStatusName}, ${this.orderState}, ${this.orderId}${this.orderDate}, ${this.executionQty},${this.dateLimit}${this.bKeeper}, ${this.type}, ${this.typeHint} }';
   }
 }

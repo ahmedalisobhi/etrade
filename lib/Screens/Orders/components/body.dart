@@ -5,6 +5,7 @@ import 'package:ultimate_demo/utility/api.dart';
 import 'package:ultimate_demo/utility/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:ultimate_demo/utility/streams/orders_stream.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -19,12 +20,55 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   bool isLoading = false;
   int currentIndex = 0;
   Api apiObj = Api();
+  OrdersStream ordersStream = OrdersStream();
   @override
   void initState() {
     super.initState();
     _tabController = new TabController(vsync: this, length: 3);
     _tabController.addListener(_handleTabSelection);
     WidgetsBinding.instance.addPostFrameCallback((_) => loadData('P'));
+    ordersStream.orderStream.listen((order) {
+      new Future.delayed(Duration.zero, () {
+        updateData(order);
+      });
+    });
+  }
+
+  updateData(Order order) {
+    if (currentIndex == 0 && order.orderState.toLowerCase() == "p") {
+      if (ordersp.any((element) => element.orderId == order.orderId)) {
+        setState(() {
+          ordersp[ordersp.indexWhere(
+              (element) => element.orderId == order.orderId)] = order;
+        });
+      } else {
+        setState(() {
+          ordersp.insert(0, order);
+        });
+      }
+    } else if (currentIndex == 1 && order.orderState.toLowerCase() == "f") {
+      if (ordersf.any((element) => element.orderId == order.orderId)) {
+        setState(() {
+          ordersf[ordersf.indexWhere(
+              (element) => element.orderId == order.orderId)] = order;
+        });
+      } else {
+        setState(() {
+          ordersf.insert(0, order);
+        });
+      }
+    } else if (currentIndex == 2 && order.orderState.toLowerCase() == "d") {
+      if (ordersc.any((element) => element.orderId == order.orderId)) {
+        setState(() {
+          ordersc[ordersc.indexWhere(
+              (element) => element.orderId == order.orderId)] = order;
+        });
+      } else {
+        setState(() {
+          ordersc.insert(0, order);
+        });
+      }
+    }
   }
 
   Future loadData(String status) async {

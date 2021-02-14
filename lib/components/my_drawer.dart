@@ -1,11 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:ultimate_demo/utility/SignalRHub.dart';
 import 'package:ultimate_demo/utility/api.dart';
 import 'package:ultimate_demo/utility/constants.dart';
+import 'package:ultimate_demo/utility/streams/signout_stream.dart';
 
-class MyDrawer extends StatelessWidget {
+class MyDrawer extends StatefulWidget {
   final int pageNum;
   MyDrawer({this.pageNum});
+
+  @override
+  _MyDrawerState createState() => _MyDrawerState();
+}
+
+class _MyDrawerState extends State<MyDrawer> {
   final Api apiObj = Api();
+  SignoutStream signoutStream = SignoutStream();
+  @override
+  void initState() {
+    super.initState();
+    signoutStream.signoutStream.listen((message) {
+      new Future.delayed(Duration.zero, () {
+        showAlertDialog(context, fromPush: true, message: message);
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -54,7 +73,7 @@ class MyDrawer extends StatelessWidget {
           Column(
             children: [
               ListTile(
-                tileColor: pageNum == 1 ? Colors.grey[400] : null,
+                tileColor: widget.pageNum == 1 ? Colors.grey[400] : null,
                 title: Text(
                   'Orders',
                   style: TextStyle(fontSize: 18),
@@ -68,7 +87,7 @@ class MyDrawer extends StatelessWidget {
                 },
               ),
               ListTile(
-                tileColor: pageNum == 2 ? Colors.grey[400] : null,
+                tileColor: widget.pageNum == 2 ? Colors.grey[400] : null,
                 title: Text('About', style: TextStyle(fontSize: 18)),
                 leading: Icon(Icons.history_outlined),
                 onTap: () {
@@ -95,7 +114,8 @@ class MyDrawer extends StatelessWidget {
     );
   }
 
-  showAlertDialog(BuildContext context) {
+  showAlertDialog(BuildContext context,
+      {bool fromPush = false, String message = ""}) {
     // set up the buttons
     Widget cancelButton = FlatButton(
       child: Text("NO"),
@@ -110,8 +130,9 @@ class MyDrawer extends StatelessWidget {
         Navigator.pop(context);
         // Update the state of the app
         Navigator.pushNamed(context, '/login');
+        SignalRHub.stopConnection();
         //call Logout
-        await apiObj.postData('api/account/logout');
+        if (!fromPush) await apiObj.postData('api/account/logout');
         StaticVariables.accessToken = null;
         StaticVariables.basicData = null;
       },
@@ -119,9 +140,9 @@ class MyDrawer extends StatelessWidget {
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: Text("Logout"),
-      content: Text("Are you sure you want to logout ?"),
+      content: Text(fromPush ? message : "Are you sure you want to logout ?"),
       actions: [
-        cancelButton,
+        (!fromPush ? cancelButton : null),
         continueButton,
       ],
     );

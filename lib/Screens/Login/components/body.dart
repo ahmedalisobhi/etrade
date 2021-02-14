@@ -7,6 +7,7 @@ import 'package:ultimate_demo/components/rounded_button.dart';
 import 'package:ultimate_demo/components/rounded_input_field.dart';
 import 'package:ultimate_demo/components/rounded_password_field.dart';
 import 'package:ultimate_demo/utility/constants.dart';
+import 'package:ultimate_demo/utility/SignalRHub.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -78,6 +79,11 @@ class _BodyState extends State<Body> {
                       AccessToken accessToken =
                           AccessToken.fromJson(data['data']);
                       StaticVariables.accessToken = accessToken;
+                      //
+                      //start SIgnalR connection
+                      await SignalRHub.startConnection();
+                      await Future.delayed(Duration(seconds: 2));
+                      SignalRHub.subscripeToHub('PendingOrders', "-1");
                       //navigate to home page
                       Navigator.pushNamed(context, '/orders');
                     }

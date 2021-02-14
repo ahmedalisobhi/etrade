@@ -16,10 +16,7 @@ class OrderListTile extends StatelessWidget {
             children: [
               Padding(
                   padding: EdgeInsets.all(2),
-                  child: Icon(
-                    Icons.addchart,
-                    //color: Colors.orange,
-                  )),
+                  child: Icon(order.type == '1' ? Icons.check : Icons.pending)),
               Padding(
                 padding: EdgeInsets.only(top: 5),
                 child: Text(
